@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block content%}
+
+
+
+
+<hr>
+<form action="/newpost" method="POST"  style = "display:inline-block;">
+    <label>
+        <h3>New Post Title:</h3>
+        <input type="text" name='post-title' value="{{title}}">
+    </label>
+    <label for="error" class="error" style="display:inline-block"><p>{{ validation_error }}</p></label>
+    <br>
+    <label>
+        <h3>Type Post Here:</h3>
+        <textarea type="text" name='post-body' value="{{body}}">{{0}}</textarea>
+    </label>
+    <label for="error" class="error" style="display:inline-block"><p>{{ validation_error }}</p></label>
+    <br>
+    <label for="textarea"><h6>Pull the corner on the right to expand the text area</h6></label>
+    <input type="submit" value='Submit Post!'>
+    
+</form>
+
+</hr>
+{% if error %}
+  <p class='error'>{{ error }}</p>
+{% endif %}   
+
+
+{% endblock%}

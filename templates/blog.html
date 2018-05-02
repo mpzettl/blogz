@@ -1,0 +1,28 @@
+
+{% block content%}
+
+
+
+
+<hr>
+
+
+
+<ul>
+    <h3>Your Post</h3>
+    
+        
+    <h4> {{ blog.title }}</h4>
+    <p> {{ blog.body }}</p>
+    <hr>
+    
+    
+    
+</ul>
+
+
+</hr>
+<label for="posts"> Return to main page:
+        <a href="/posts"><input type="submit"  value='Go Back!'></a>
+</label>
+{% endblock%}
