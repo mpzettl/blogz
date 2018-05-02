@@ -1,22 +1,9 @@
-from flask import Flask, request, redirect, render_template, session, flash
+from flask import request, redirect, render_template, session, flash
 from flask_sqlalchemy import SQLAlchemy
+from models import Blog
+from app import app, db
+import cgi
 
-app = Flask(__name__)
-app.config['DEBUG'] = True
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://build-a-blog:buildablog@localhost:8889/build-a-blog'
-app.config['SQLALCHEMY_ECHO'] = True
-db = SQLAlchemy(app)
-app.secret_key = 'y337kGcys&zP3B'
-class Blog(db.Model):
-
-    id = db.Column(db.Integer, primary_key=True)
-    title = db.Column(db.String(120))
-    body = db.Column(db.String(4000))
-    #submitted = db.Column(db.Boolean)
-
-    def __init__(self, title, body):  
-        self.title = title
-        self.body = body
 @app.route('/validation', methods=['POST', 'GET'])
 def validation():
     
@@ -49,10 +36,10 @@ def add_post():
             db.session.commit()
             blog = Blog.query.all()
             for last in blog:
-                last.id
+                last_post = last.id
 
             
-            return redirect('/blog?id={0}'.format(last.id))
+            return redirect('/blog?id={0}'.format(last_post))
         
     else:
 
@@ -78,6 +65,50 @@ def single_entry():
         
         
         return render_template('posts.html')  
+
+@app.route('/signup', methods = ["POST", "GET"])
+def sign_up():
+    
+    if request.method == 'POST':
+        username =  request.form['username']
+        password = request.form['password']
+        verify = request.form['verify']
+        
+        if username == "" or password =="" or verify =="":
+            fill_error = 'please fill in all areas'
+            return render_template('signup.html', username=username, fill_error=fill_error)
+        
+        elif  " " in username or " " in password:
+            username_error = 'please do not use blank spaces'
+            return  render_template('signup.html', username=username, username_error=username_error)
+        
+        elif len(username) < 3:
+            userlen_error = 'please enter a username more than 3 characters'
+            return render_template('signup.html', username=username, userlen_error=userlen_error)
+        
+        elif len(password) < 3:
+            password_error = 'please enter a password more than 3 characters'
+            return render_template('signup.html', username=username,  password_error=password_error)
+
+        elif password == verify:
+            new_user = User(username, password)
+                
+            db.session.add(new_user)
+            db.session.commit()
+            blog = Blog.query.all()
+        
+    
+            return render_template('base.html', username=username)
+    
+        else:
+            verify_error = 'please make sure your verification matches your password!'
+            return render_template('signup.html', username=username, verify_error=verify_error)  
+    else:
+        return redirect('/')
+
+
+
+
 
 @app.route('/', methods=['POST', 'GET'])
 def index():

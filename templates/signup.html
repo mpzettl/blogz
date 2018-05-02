@@ -1,0 +1,58 @@
+{% block content %}
+
+<style>
+    .error {
+        color: red;
+    }
+</style>
+<h1>Register Your Blog!</h1>
+<form action="/signup" method="post">
+    <header>
+        <b>User Signup</b>
+        <hr>
+    </header>
+
+    <body>
+
+        <table>
+            <tbody>
+                <tr>
+                    <td><label for="username" style="display:inline-block;"><h3>Username:</h3></label></td>
+                    <td><input id="username" type="text" name="username" value="{{ username }}"></input>
+                    </td>
+                    <td><label for="error" class="error" style="display:inline-block;"><p>{{username_error}}</p></label></td>
+                    <td><label for="error" class="error" style="display:inline-block;"><p>{{fill_error}}</p></label></td>
+                    <td><label for="error" class="error" style="display:inline-block;"><p>{{userlen_error}}</p></label></td>
+
+                </tr>
+            </tbody>
+        </table>
+
+        <table>
+            <tbody>
+                <tr>
+                    <td><label for="password" style="display:inline-block;"><h3>Password:</h3></label></td>
+                    <td><input id="password" type="password" name="password" value="{{ password }}" /></td>
+                    <td><label for="error" class="error" style="display:inline-block;"><p>{{password_error}}</p></label></td>
+                    <td><label for="error" class="error" style="display:inline-block;"><p>{{fill_error}}</p></label></td>
+
+                </tr>
+            </tbody>
+        </table>
+        <table>
+            <tbody>
+                <tr>
+                    <td><label for="verify" style="display:inline-block;"><h3>Verify:</h3></label></td>
+                    <td><input id="verify" type="password" name="verify" value="{{ owner }}" /></td>
+                    <td><label for="error" class="error" style="display:inline-block;"><p>{{verify_error}}</p></label></td>
+                    <td><label for="error" class="error" style="display:inline-block;"><p>{{fill_error}}</p></label></td>
+
+                </tr>
+            </tbody>
+        </table>
+
+    </body>
+    <input type="submit" value="submit" />
+</form>
+
+{% endblock %}

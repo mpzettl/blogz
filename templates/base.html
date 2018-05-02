@@ -19,7 +19,18 @@
         <h2><a href="/newpost">Add a New Post</a></h2>
         
         </hr>
-    </nav>  
+    </nav> 
+    
+    <form action="/" method="post">
+
+        
+        <h2>
+            <p>Welcome, {{ username }} !!!</p>
+        </h2>
+        
+    
+    </form>
+
     <!--<nav>
         <a href="/blog">Blog</a>
         <a href="/newpost"></a>
@@ -32,9 +43,14 @@
     {% endfor %}
     </ul>
     {% endwith %}-->
+</body>
+    <hr>
+        <footer id="footer">
+        {% block footer %} &copy; Copyright 2018 <a href="http://www.peterzettl.com">peter zettl</a> {% endblock %}
 
+        </footer>
     {% block content %}
     {% endblock %}
 
-</body>
+
 </html>
