@@ -1,6 +1,6 @@
 from flask import request, redirect, render_template, session, flash
 from flask_sqlalchemy import SQLAlchemy
-from models import Blog
+from models import Blog, User
 from app import app, db
 import cgi
 
@@ -22,7 +22,7 @@ def add_post():
     if request.method == 'POST':
         title = request.form['post-title']
         body = request.form['post-body']
-        
+        username = User.query.filter_by().first()
 
 
         if title == "" or body == "":
@@ -47,10 +47,11 @@ def add_post():
 
 @app.route('/posts', methods=['POST','GET'])
 def my_blog():
+    username = User.query.filter_by().first()
     if request.method == 'GET':
         blog = Blog.query.all()
-
-        return render_template('posts.html', blog=blog)
+        username=username.username 
+        return render_template('posts.html', blog=blog, username=username)
     else:
         return render_template('posts.html')
 @app.route('/blog', methods=['POST','GET'])
@@ -104,7 +105,7 @@ def sign_up():
             verify_error = 'please make sure your verification matches your password!'
             return render_template('signup.html', username=username, verify_error=verify_error)  
     else:
-        return redirect('/')
+        return render_template('signup.html')
 
 
 
@@ -112,8 +113,11 @@ def sign_up():
 
 @app.route('/', methods=['POST', 'GET'])
 def index():
-    
-    return render_template('base.html', my_blog=my_blog)
+    if request.method =='GET':
+        
+        return render_template('signup.html')
+    else:   
+        return render_template('base.html', username=username)
 
 if __name__ == '__main__':
     app.run()

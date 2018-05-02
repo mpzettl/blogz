@@ -4,14 +4,14 @@
 
 
 <h2>
-    <p> {{ user.username }} </p>
+    <p> {{ username }} </p>
 </h2>
 <hr>
 
 
 
 <ul>
-    <h5>{{ user.username }}'s Post</h5>
+    <h5>My Post</h5>
     
         
     <h4> {{ blog.title }}</h4>
@@ -27,4 +27,9 @@
 <label for="posts"> Return to main page:
         <a href="/posts"><input type="submit"  value='Go Back!'></a>
 </label>
+<hr>
+        <footer id="footer">
+        {% block footer %} &copy; Copyright 2018 <a href="http://www.peterzettl.com">peter zettl</a> {% endblock %}
+
+        </footer>
 {% endblock%}

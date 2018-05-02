@@ -8,13 +8,13 @@
 <form action="/newpost" method="POST"  style = "display:inline-block;">
     <label>
         <h3>New Post Title:</h3>
-        <input type="text" name='post-title' value="{{title}}">
+        <textarea type="text" name='post-title' rows="4" cols="30" value="{{title}}"></textarea>
     </label>
     <label for="error" class="error" style="display:inline-block"><p>{{ validation_error }}</p></label>
     <br>
     <label>
         <h3>Type Post Here:</h3>
-        <textarea type="text" name='post-body' value="{{body}}">{{0}}</textarea>
+        <textarea type="text" name='post-body' rows="15" cols="50"value="{{body}}">{{0}}</textarea>
     </label>
     <label for="error" class="error" style="display:inline-block"><p>{{ validation_error }}</p></label>
     <br>
