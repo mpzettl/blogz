@@ -1,23 +1,42 @@
+
 {% block content %}
-
+<body>
+        <head>
+                <title>{{title}}</title>
+                <style>
+                        .error {
+                            color: red;
+                        }
+                </style>
+                
+            </head>
+        <body>
+    
+</body>
 <h1>Login to Blogz!</h1>
-<p>If you don't have an account, you may <a href="/signup">Sign up here!</a></p>
+<p><h3>If you don't have an account:</h3> <button ><h3><a href="/signup">Sign up here!</a></h3></button></p>
 
-<form action="/login" method = "post">
+<form action="/login" method = 'POST'>
     <table>
         <tr>
             <td><label for="username">Username</label></td>
             <td>
-                <input name="username" type="text" value = "{{ username }}">
+                <input name="username"  type="text" value = "{{ username }}">
+                <label for="error" class="error" style="display:inline-block;"><p>{{ error }}</p></label>
             </td>
-        </tr>
+        </tr>   
+        
         <tr>
             <td><label for="password">Password</label></td>
             <td>
-                <input name ="password" type="password">
+                <input name ="password" type="password" >
+                <label for="error" class="error" style="display:inline-block;"><p>{{ error }}</p></label>
             </td>
+            
         </tr>
+        
     </table>
     <input type="submit" value="Login">
 </form>
+
 {% endblock %}

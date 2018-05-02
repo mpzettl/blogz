@@ -12,12 +12,19 @@
 <body>
     <nav>
         <h1>Welcome to My Blog!</h1>
-        <hr>
-        <h2><a href="/posts" username =username>View My Blog</a></h2>
-        </hr>
-        <hr>
-        <h2><a href="/newpost">Add a New Post</a></h2>
+        <header id="header">
+            {% block header %}<h6> &copy; Copyright 2018 <a href="http://www.peterzettl.com">peter zettl</a> </h6>{% endblock %}
+    
+        </header>
         
+        <hr>
+        <div>
+        <button><a href="/posts" ><h2>View My Blog</h2></a></button>
+        
+        <button><a href="/newpost"><h2>Add a New Post</h2></a></button>
+        
+        <button><a href="/logout"><h2>Logout</h2></a></button>
+        </div>
         </hr>
     </nav> 
     
@@ -45,10 +52,7 @@
     {% endwith %}-->
 </body>
     <hr>
-        <footer id="footer">
-        {% block footer %} &copy; Copyright 2018 <a href="http://www.peterzettl.com">peter zettl</a> {% endblock %}
-
-        </footer>
+        
     {% block content %}
     
     {% endblock %}
