@@ -18,16 +18,15 @@ def add_post():
     if request.method == 'POST':
         title = request.form['post-title']
         body = request.form['post-body']
-        username = User.query.filter_by().first()
-
+        #username = User.query.filter_by().first()
 
         if title == "" or body == "":
             flash("""Error: Please fill all fields""", 'error') 
             return render_template('newpost.html', title=title, body=body)#, validation_error=validation_error, title=title, body=body)
 
         else:
-            new_post = Blog(title, body)
-            
+            owner = User.query.filter_by(username=session['username']).first()
+            new_post = Blog(title, body, owner)
             db.session.add(new_post)
             db.session.commit()
             flash('Success!')
