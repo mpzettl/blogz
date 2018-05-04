@@ -22,8 +22,8 @@ def add_post():
 
 
         if title == "" or body == "":
-            validation_error = """Error: Please fill all fields"""
-            return render_template('newpost.html', validation_error=validation_error, title=title, body=body)
+            flash("""Error: Please fill all fields""", 'error') 
+            return render_template('newpost.html', title=title, body=body)#, validation_error=validation_error, title=title, body=body)
 
         else:
             new_post = Blog(title, body)
@@ -42,7 +42,6 @@ def add_post():
         id = User.query.filter_by().first()
         username = User.query.filter_by().first()
 
-        #username=username.username
         return render_template('newpost.html', username=username.username)
 
 @app.route('/posts', methods=['POST','GET'])
