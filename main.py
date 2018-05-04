@@ -12,11 +12,6 @@ def require_login():
         return redirect('/login')
 
 
-
-
-
-
-
 @app.route('/newpost', methods=['POST', 'GET'])
 def add_post():   
     
@@ -35,6 +30,7 @@ def add_post():
             
             db.session.add(new_post)
             db.session.commit()
+            flash('Success!')
             blog = Blog.query.all()
             for last in blog:
                 last_post = last.id
@@ -50,7 +46,7 @@ def add_post():
         return render_template('newpost.html', username=username.username)
 
 @app.route('/posts', methods=['POST','GET'])
-def alls_blog():
+def all_blog():
     username = User.query.filter_by().first()
     if request.method == 'GET':
         blog = Blog.query.all()
@@ -75,7 +71,7 @@ def my_blog():
         entry = request.args.get('id')
         blog = Blog.query.filter_by(id=entry).first()
          
-        return render_template('singleUser.html', blog=blog, username=username)
+        return render_template('singleUser.html', blog=blog, username=username, entry=entry)
     else:
         
         return render_template('index.html')
@@ -111,6 +107,7 @@ def sign_up():
                 db.session.add(new_user)
                 db.session.commit()
                 session['username'] = username
+                flash('Logged in')
                 blog = Blog.query.all()
             
                 return render_template('base.html', username=username)
@@ -134,6 +131,7 @@ def log_in():
                 return render_template('login.html', username=username, error=error)
         elif user and user.password == password:
             session['username'] = username
+            flash('Logged in')
             return redirect('/newpost')
             #return render_template('newpost.html', username=username)
         else:
@@ -154,7 +152,10 @@ def go_home():
     
     #return redirect ('/')
     return render_template('index.html')
-    
+@app.route('/about') 
+def read_about():
+    return render_template('about.html')   
+
 @app.route('/', methods=['POST', 'GET'])
 def index():
     

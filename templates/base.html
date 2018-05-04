@@ -21,7 +21,7 @@
                     <tr>
                         <td><p><h1>Welcome to BlogZ!</h1>{% endblock %}
                         </td>
-                        <td><label for="header" class="text" style="display:inline-block;"><p><h6> &copy;2018 <a href="http://www.peterzettl.com">ZETTL</a> </h6></p></label></td>
+                        <td><label for="header" class="text" style="display:inline-block;"><p><h6> &copy;2018 <a href="http://www.peterzettl.com">zettl</a> </h6></p></label></td>
                     </tr>
                 </tbody>
             </table>
@@ -42,7 +42,7 @@
                 
                     <button><a href="/logout"><h2>Logout</h2></a></button>
 
-                    <button><a href="/index"><h2>About</h2></a></button>
+                    <button><a href="/about"><h2>About</h2></a></button>
                 
             </ul>
             
@@ -81,11 +81,18 @@
     </ul>
     {% endwith %}-->
 </body>
-    <hr>
-      
+   
     {% block content %}
     
     {% endblock %}
-
-
+<hr>
+<footer for="footer">
+    {% with messages = get_flashed_messages() %} 
+    <ul>
+    {% for messages in messages %}
+    <li><font color= 'blue'>{{ messages }}</font></li>
+    {% endfor %}
+    </ul>
+    {% endwith %}
+</footer>  
 </html>

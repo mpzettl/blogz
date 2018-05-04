@@ -3,36 +3,30 @@
 {% block content%}
 {% if username == None %}
     <p><h2>Please login!</h2></p>
+    
 {% else %}
-    <h2>
-        <p> {{ username }} </p>
-        <label>
-            <a href="/newpost"><h5>Add a New Post</h5></a>
-        </label>
-    </h2>
-
 {% endif %}
 
 
 
 
-
 <ul>
+    <h2>
+        
+    </h2>
     <h5>My Posts</h5>
-    
+    <p> {{ username }} </p>
        
     <h4> {{ blog.title }}</h4>
     <p> {{ blog.body }}</p>
     <hr>
-    
-    
-    
+ 
 </ul>
 
 
 </hr>
 <label for="index"> 
-        <a href="/index"><input type="submit" name = "{{ username }}" value='Home or Login'></a>
+        <a href="/base"><input type="submit" name = "{{ username }}" value='Home or Login'></a>
 </label>
 <hr>
         <footer id="footer">
