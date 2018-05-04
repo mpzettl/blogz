@@ -6,7 +6,7 @@ import cgi
 
 @app.before_request
 def require_login():
-    allowed_routes = ['login', 'signup']
+    allowed_routes = ['log_in', 'single_entry', 'sign_up', 'index']
     if request.endpoint not in allowed_routes and 'username' not in session:
 
         return redirect('/login')
@@ -132,7 +132,7 @@ def log_in():
                 return render_template('login.html', username=username, error=error)
         elif user and user.password == password:
             session['username'] = username
-            return redirect('/')
+            return redirect('/newpost')
             #return render_template('newpost.html', username=username)
         else:
             error = "Password incorrect or user does not exist"
@@ -145,7 +145,7 @@ def log_in():
 def log_out():
     del session['username']
     
-    return redirect('/blog')#using /login works
+    return redirect('/posts')#using /login works
 
 @app.route('/index', methods=['POST', 'GET'])
 def go_home():
