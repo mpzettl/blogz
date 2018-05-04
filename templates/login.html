@@ -29,7 +29,7 @@
             <td><label for="password">Password</label></td>
             <td>
                 <input name ="password" type="password" >
-                <label for="error" class="error" style="display:inline-block;"><p>{{ error }}</p></label>
+                <!--<label for="error" class="error" style="display:inline-block;"><p>{{ error }}</p></label>-->
             </td>
             
         </tr>
@@ -39,5 +39,13 @@
 </form>
 <p><h3>No account?<a href="/signup"> Sign up here!</a></h3></p>
 <label for="error" class="error" style="display:inline-block;"><p>{{ error }}</p></label>
-
+<footer for="footer">
+        {% with messages = get_flashed_messages(with_categories=True) %} 
+        <ul>
+        {% for category, message in messages %}
+        <li class="{{category}}">{{ message }}</li>
+        {% endfor %}
+        </ul>
+        {% endwith %}
+    </footer>
 {% endblock %}

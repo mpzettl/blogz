@@ -107,7 +107,7 @@ def sign_up():
                 db.session.add(new_user)
                 db.session.commit()
                 session['username'] = username
-                flash('Logged in')
+                flash('Logged in', 'session')
                 blog = Blog.query.all()
             
                 return render_template('base.html', username=username)
@@ -127,17 +127,18 @@ def log_in():
         password = request.form['password']
         user = User.query.filter_by(username=username).first()
         if username == "" or password =="":
-                error = 'please fill in all areas'
-                return render_template('login.html', username=username, error=error)
+                flash('Please fill in all areas', "error")
+                return render_template('login.html', username=username)
         elif user and user.password == password:
             session['username'] = username
-            flash('Logged in')
+            flash('Logged in', 'session')
             return redirect('/newpost')
             #return render_template('newpost.html', username=username)
         else:
-            error = "Password incorrect or user does not exist"
+            flash('Wrong Password or Ivalid User', "error")
+            
 
-            return render_template('login.html', username=username, error=error)
+            return render_template('login.html', username=username)
     else:
         return render_template('login.html')
 

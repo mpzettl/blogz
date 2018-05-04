@@ -2,9 +2,9 @@
 
 {% block content%}
 {% if username == None %}
-    <p><h2>Please login!</h2></p>
-    
+<p><h2>User please login!</h2></p> 
 {% else %}
+<p> {{ username }} </p>
 {% endif %}
 
 
@@ -15,7 +15,7 @@
         
     </h2>
     <h5>My Posts</h5>
-    <p> {{ username }} </p>
+    
        
     <h4> {{ blog.title }}</h4>
     <p> {{ blog.body }}</p>
@@ -31,6 +31,6 @@
 <hr>
         <footer id="footer">
         {% block footer %} &copy;2018 <a href="http://www.peterzettl.com">zettl</a> {% endblock %}
-
+        
         </footer>
 {% endblock%}
