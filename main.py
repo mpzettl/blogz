@@ -46,20 +46,22 @@ def add_post():
 @app.route('/posts', methods=['POST','GET'])
 def all_blog():
     username = User.query.filter_by().first()
+    owner = User.query.filter_by(username=session['username']).first()
     if request.method == 'GET':
         blog = Blog.query.all()
-        username=username.username 
+        username=user.username 
         return render_template('posts.html', blog=blog, username=username)
     else:
         return render_template('posts.html')
 @app.route('/blog', methods=['POST','GET'])
 def single_entry():
+    owner = User.query.filter_by(username=session['username']).first()
     if request.method == 'GET':
         username = request.args.get('username')
-        entry = request.args.get('id')
-        blog = Blog.query.filter_by(id=entry).first()
+        id = request.args.get('id')
+        blog = Blog.query.filter_by(id=id).first()
 
-        return render_template('blog.html', blog=blog, username=username)
+        return render_template('blog.html', blog=blog, username=username, id=id)
     else:
         return render_template('posts.html')  
 @app.route('/singleUser', methods=['POST','GET'])
