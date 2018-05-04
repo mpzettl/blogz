@@ -45,34 +45,41 @@ def add_post():
 
 @app.route('/posts', methods=['POST','GET'])
 def all_blog():
-    username = User.query.filter_by().first()
+    username = User.query.filter_by(username=session['username']).first()
     owner = User.query.filter_by(username=session['username']).first()
+    
     if request.method == 'GET':
         blog = Blog.query.all()
-        username=user.username 
-        return render_template('posts.html', blog=blog, username=username)
-    else:
-        return render_template('posts.html')
+        user = User.query.all()
+        username=username.username 
+        return render_template('posts.html', blog=blog, user=user, username=username)
+    #else:
+        #return render_template('posts.html')
 @app.route('/blog', methods=['POST','GET'])
 def single_entry():
     owner = User.query.filter_by(username=session['username']).first()
     if request.method == 'GET':
         username = request.args.get('username')
+        owner_id=request.args.get('owner_id')
         id = request.args.get('id')
         blog = Blog.query.filter_by(id=id).first()
-
-        return render_template('blog.html', blog=blog, username=username, id=id)
+        user = User.query.filter_by(username=session['username']).all()
+        return render_template('blog.html', blog=blog, user= user, username=username, id=id)
     else:
         return render_template('posts.html')  
 @app.route('/singleUser', methods=['POST','GET'])
 def my_blog():
+    username = User.query.filter_by(username=session['username']).first() 
+    owner = User.query.filter_by(username=session['username']).first() 
     if request.method == 'GET':
-        username = request.args.get('username')
-        entry = request.args.get('id')
-        blog = Blog.query.filter_by(id=entry).first()
-         
-        return render_template('singleUser.html', blog=blog, username=username, entry=entry)
+        blog = Blog.query.filter_by().all()
+        user = User.query.filter_by(username=session['username']).all() 
+        return render_template('singleUser.html', blog=blog, user=user, username=username, owner=owner)
     else:
+        #username = request.args.get('username')
+        #entry = request.args.get('id')
+        #blog = Blog.query.filter_by(id=entry).first()
+        #owner = User.query.filter_by(username=session['username']).first()
         
         return render_template('index.html')
 
@@ -150,6 +157,14 @@ def log_out():
 
 @app.route('/index', methods=['POST', 'GET'])
 def go_home():
+    username = User.query.filter_by(username=session['username']).first()
+    owner = User.query.filter_by(username=session['username']).first()
+    
+    if request.method == 'GET':
+        blog = Blog.query.all()
+        user = User.query.all()
+        username=username.username 
+        return render_template('index.html', blog=blog, user=user, username=username)
     
     #return redirect ('/')
     return render_template('index.html')

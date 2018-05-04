@@ -1,23 +1,25 @@
-
+{% extends "base.html" %}
 {% block content%}
 
 
 
 <h2>
-    <p> {{ username }} </p>
+    <p> {{ user }} </p>
 </h2>
 <hr>
 
 
 
 <ul>
-    <h5>My Posts</h5>
+    <h5>Posts</h5>
     
        
     <h4> {{ blog.title }}</h4>
     <p> {{ blog.body }}</p>
-    <p>{{ blog.owner }}</p>
-    <p>{{ blog.id}}</p>
+    <p>{{ blog.owner_id }}</p>
+    <p>{{ user.username }}</p>
+
+    
     <hr>
     
     

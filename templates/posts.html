@@ -13,9 +13,16 @@
         <h4><a href="/blog?id={{id.id}}">{{ id.title }}</a></h4>
         <p> {{ id.body }}</p>
         <p> {{ id.owner }}</p>
+            
         <hr>
     {% endfor %}
-    
+    {% for id in user: %} 
+        <h4><a href="/index?id={{username.username}}">{{ id.username }}</a></h4>
+        <p> {{ id.blogs }}</p>
+        
+
+    {% endfor %}
+        
     
 </ul>
 

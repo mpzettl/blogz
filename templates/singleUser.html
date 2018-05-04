@@ -1,33 +1,27 @@
 {% extends "base.html" %}
 
 {% block content%}
-{% if username == None %}
+{% if blog.owner == None %}
 <p><h2>User please login!</h2></p> 
-{% else %}
-<p> {{ username }} </p>
 {% endif %}
+<h2>{{ username.username }}</h2>
+  
+    <ul>
+    <h3>{{ blog.username }}</h3>
+<hr>
+<h5>My Posts</h5>
+<ul>   
+{% for id in user: %} 
+<p> {{ id.blogs }}</p>
+{% endfor %}
 
-
-
-
-<ul>
-    <h2>
-        
-    </h2>
-    <h5>My Posts</h5>
-    
-       
-    <h4> {{ blog.title }}</h4>
-    <p> {{ blog.body }}</p>
-    <p>{{ blog.owner }}</p>
-    <p>{{ blog.id }}</p>
-    <hr>
+<hr>
  
 </ul>
 
 </hr>
 <label for="index"> 
-        <a href="/base"><input type="submit" name = "{{ username }}" value='Home or Login'></a>
+        <a href="/base"><input type="submit" name = "{{ username }}" value='Home'></a>
 </label>
 <hr>
         <footer id="footer">
