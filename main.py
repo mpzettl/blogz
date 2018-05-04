@@ -122,8 +122,10 @@ def log_in():
 
         password = request.form['password']
         user = User.query.filter_by(username=username).first()
-        
-        if user and user.password == password:
+        if username == "" or password =="":
+                error = 'please fill in all areas'
+                return render_template('login.html', username=username, error=error)
+        elif user and user.password == password:
             
             return redirect('/')
             #return render_template('newpost.html', username=username)
