@@ -2,6 +2,8 @@
 <html>
     <head>
         <title>{{title}}</title>
+        <!--<link rel="stylesheet" href="/css/normalize.css">
+        <link rel="stylesheet" href="/css/styles.css">-->
         <style>
                 .error {
                     color: red;
@@ -11,32 +13,56 @@
     </head>
 <body>
     <nav>
-        <h1>Welcome to My Blog!</h1>
+            
         <header id="header">
-            {% block header %}<h6> &copy; Copyright 2018 <a href="http://www.peterzettl.com">peter zettl</a> </h6>{% endblock %}
-    
+            {% block header %}
+            <table>
+                <tbody>
+                    <tr>
+                        <td><p><h1>Welcome to BlogZ!</h1>{% endblock %}
+                        </td>
+                        <td><label for="header" class="text" style="display:inline-block;"><p><h6> &copy;2018 <a href="http://www.peterzettl.com">ZETTL</a> </h6></p></label></td>
+                    </tr>
+                </tbody>
+            </table>
         </header>
         
         <hr>
         <div>
-        <button><a href="/posts" ><h2>View My Blog</h2></a></button>
-        
-        <button><a href="/newpost"><h2>Add a New Post</h2></a></button>
-        
-        <button><a href="/logout"><h2>Logout</h2></a></button>
+            <ul>
+                    <button><a href="/home" ><h2>Home</h2></a></button>
+
+                    <button><a href="/posts" ><h2>View My Blog</h2></a></button>
+                
+                    <button><a href="/newpost"><h2>Add a New Post</h2></a></button>
+             
+                    <button><a href="/login"><h2>Login</h2></a></button>
+                
+                    <button><a href="/logout"><h2>Logout</h2></a></button>
+                
+            </ul>
+            
         </div>
         </hr>
     </nav> 
-    
+    <hr>
     <form action="/" method="post">
 
         
         <h2>
-            <p>Welcome, {{ username }} !!!</p>
+            <p>Write what you want when you want</p>
+            <p>{{ username.id }}</p>
+            <p>{{ username }}</p>
+            <p>{{ id }}</p>
+            <p>{{ title }}</p>
         </h2>
         
-    
+        
+        
     </form>
+    
+    
+    
 
     <!--<nav>
         <a href="/blog">Blog</a>
@@ -52,7 +78,7 @@
     {% endwith %}-->
 </body>
     <hr>
-        
+      
     {% block content %}
     
     {% endblock %}

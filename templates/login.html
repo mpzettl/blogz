@@ -13,8 +13,7 @@
         <body>
     
 </body>
-<h1>Login to Blogz!</h1>
-<p><h3>If you don't have an account:</h3> <button ><h3><a href="/signup">Sign up here!</a></h3></button></p>
+<h1>Login to BlogZ!</h1>
 
 <form action="/login" method = 'POST'>
     <table>
@@ -38,5 +37,7 @@
     </table>
     <input type="submit" value="Login">
 </form>
+<p><h3>No account?<a href="/signup"> sign up here!</a></h3></p>
+<label for="error" class="error" style="display:inline-block;"><p>{{ error }}</p></label>
 
 {% endblock %}

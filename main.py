@@ -45,8 +45,11 @@ def add_post():
             return redirect('/blog?id={0}'.format(last_post))
         
     else:
+        id = User.query.filter_by().first()
+        username = User.query.filter_by().first()
 
-        return render_template('newpost.html')
+        #username=username.username
+        return render_template('newpost.html', username=username.username)
 
 @app.route('/posts', methods=['POST','GET'])
 def my_blog():
@@ -116,13 +119,14 @@ def sign_up():
 def log_in():
     if request.method == 'POST':
         username = request.form['username']
+
         password = request.form['password']
         user = User.query.filter_by(username=username).first()
         
         if user and user.password == password:
-
-            #return redirect('/newpost')
-            return render_template('newpost.html', username=username)
+            
+            return redirect('/')
+            #return render_template('newpost.html', username=username)
         else:
             error = "Password incorrect or user does not exist"
 
@@ -130,20 +134,31 @@ def log_in():
     else:
         return render_template('login.html')
 
-@app.route('/logout', methods=['POST', 'GET'])
+@app.route('/logout')
 def log_out():
     #del session['username']
-    return redirect('/')
-#@app.route('/home', methods=['POST', 'GET'])
+    
+    return redirect('/login')
+
+@app.route('/home', methods=['POST', 'GET'])
+def go_home():
+
+    return redirect ('/')
     
 @app.route('/', methods=['POST', 'GET'])
 def index():
+    
     if request.method =='GET':
-        
-        return render_template('login.html')
+        id = request.args.get('id')
+        username = request.args.get('username')
+        title = request.args.get('title')
+        if username==username:
+            return render_template('base.html', id=id, username=username, title=title)
+        else:
+            return render_template('login')
     else:
         #username = User.query.filter_by(id=id).first()  
-        return render_template('base.html', username=username)
+        return render_template('base.html')
 
 if __name__ == '__main__':
     app.run()
