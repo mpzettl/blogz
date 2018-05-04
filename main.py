@@ -4,7 +4,12 @@ from models import Blog, User
 from app import app, db
 import cgi
 
+@app.before_request
+def require_login():
+    allowed_routes = ['login', 'signup']
+    if request.endpoint not in allowed_routes and 'username' not in session:
 
+        return redirect('/login')
 
 
 @app.route('/validation', methods=['POST', 'GET'])
@@ -103,6 +108,7 @@ def sign_up():
                     
                 db.session.add(new_user)
                 db.session.commit()
+                session['username'] = username
                 blog = Blog.query.all()
             
                 return render_template('base.html', username=username)
@@ -119,14 +125,13 @@ def sign_up():
 def log_in():
     if request.method == 'POST':
         username = request.form['username']
-
         password = request.form['password']
         user = User.query.filter_by(username=username).first()
         if username == "" or password =="":
                 error = 'please fill in all areas'
                 return render_template('login.html', username=username, error=error)
         elif user and user.password == password:
-            
+            session['username'] = username
             return redirect('/')
             #return render_template('newpost.html', username=username)
         else:
@@ -138,11 +143,11 @@ def log_in():
 
 @app.route('/logout')
 def log_out():
-    #del session['username']
+    del session['username']
     
-    return redirect('/login')
+    return redirect('/blog')#using /login works
 
-@app.route('/home', methods=['POST', 'GET'])
+@app.route('/index', methods=['POST', 'GET'])
 def go_home():
 
     return redirect ('/')
