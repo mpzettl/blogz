@@ -11,9 +11,9 @@
 
 
 <ul>
-    <h5>My Post</h5>
+    <h5>My Posts</h5>
     
-        
+       
     <h4> {{ blog.title }}</h4>
     <p> {{ blog.body }}</p>
     <hr>
@@ -24,12 +24,14 @@
 
 
 </hr>
-<label for="posts"> Return to main page:
-        <a href="/posts"><input type="submit" name = "{{ username }}" value='Go Back!'></a>
+<label for="posts"> 
+        <a href="/newpost"><input type="submit" name = "{{ username }}" value='Post Again!'></a>
+        <a href="/singleUser"><input type="submit" name = "{{ username }}" value='My Posts!'></a>
+        <a href="/posts"><input type="submit" name = "{{ username }}" value='All Posts'></a>
 </label>
 <hr>
         <footer id="footer">
-        {% block footer %} &copy; Copyright 2018 <a href="http://www.peterzettl.com">peter zettl</a> {% endblock %}
+        {% block footer %} &copy;2018 <a href="http://www.peterzettl.com">zettl</a> {% endblock %}
 
         </footer>
 {% endblock%}

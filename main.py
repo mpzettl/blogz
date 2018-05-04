@@ -6,20 +6,13 @@ import cgi
 
 @app.before_request
 def require_login():
-    allowed_routes = ['log_in', 'single_entry', 'sign_up', 'index']
+    allowed_routes = ['log_in', 'my_blog', 'sign_up', 'index', 'go_home']
     if request.endpoint not in allowed_routes and 'username' not in session:
 
         return redirect('/login')
 
 
-@app.route('/validation', methods=['POST', 'GET'])
-def validation():
-    
-    
-    validation_error = """Error: Please fill all fields""" 
 
-
-    return render_template('newpost.html', validation_error=validation_error)
 
 
 
@@ -57,7 +50,7 @@ def add_post():
         return render_template('newpost.html', username=username.username)
 
 @app.route('/posts', methods=['POST','GET'])
-def my_blog():
+def alls_blog():
     username = User.query.filter_by().first()
     if request.method == 'GET':
         blog = Blog.query.all()
@@ -72,11 +65,20 @@ def single_entry():
         entry = request.args.get('id')
         blog = Blog.query.filter_by(id=entry).first()
 
-        return render_template('blog.html', blog=blog)
+        return render_template('blog.html', blog=blog, username=username)
+    else:
+        return render_template('posts.html')  
+@app.route('/singleUser', methods=['POST','GET'])
+def my_blog():
+    if request.method == 'GET':
+        username = request.args.get('username')
+        entry = request.args.get('id')
+        blog = Blog.query.filter_by(id=entry).first()
+         
+        return render_template('singleUser.html', blog=blog, username=username)
     else:
         
-        
-        return render_template('posts.html')  
+        return render_template('index.html')
 
 @app.route('/signup', methods = ["POST", "GET"])
 def sign_up():
@@ -149,8 +151,9 @@ def log_out():
 
 @app.route('/index', methods=['POST', 'GET'])
 def go_home():
-
-    return redirect ('/')
+    
+    #return redirect ('/')
+    return render_template('index.html')
     
 @app.route('/', methods=['POST', 'GET'])
 def index():

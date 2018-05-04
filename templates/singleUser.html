@@ -1,10 +1,42 @@
 {% extends "base.html" %}
+
 {% block content%}
+{% if username == None %}
+    <p><h2>Please login!</h2></p>
+{% else %}
+    <h2>
+        <p> {{ username }} </p>
+        <label>
+            <a href="/newpost"><h5>Add a New Post</h5></a>
+        </label>
+    </h2>
 
- 
+{% endif %}
 
 
 
-  
-            
+
+
+<ul>
+    <h5>My Posts</h5>
+    
+       
+    <h4> {{ blog.title }}</h4>
+    <p> {{ blog.body }}</p>
+    <hr>
+    
+    
+    
+</ul>
+
+
+</hr>
+<label for="index"> 
+        <a href="/index"><input type="submit" name = "{{ username }}" value='Home or Login'></a>
+</label>
+<hr>
+        <footer id="footer">
+        {% block footer %} &copy;2018 <a href="http://www.peterzettl.com">zettl</a> {% endblock %}
+
+        </footer>
 {% endblock%}
