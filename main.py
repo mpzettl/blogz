@@ -30,11 +30,10 @@ def add_post():
             db.session.add(new_post)
             db.session.commit()
             flash('Success!')
-            blog = Blog.query.all()
+            #blog = Blog.query.all()
+            blog = Blog.query.filter_by(owner=owner).all()
             for last in blog:
                 last_post = last.id
-
-            
             return redirect('/blog?id={0}'.format(last_post))
         
     else:

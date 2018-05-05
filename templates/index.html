@@ -4,8 +4,8 @@
 <ul>
 {% for id in user: %} 
 
-    <h4><a href="/singleUser?id={{id.blog}}">{{ id.username }}</a></h4>
-    
+    <h4><a href="/posts?id={{id.blogs}}">{{ id.username }}</a></h4>
+    <h6>{{id.blogs}}</h6>
     
 {% endfor %}        
         
