@@ -6,7 +6,7 @@ import cgi
 
 @app.before_request
 def require_login():
-    allowed_routes = ['log_in', 'my_blog', 'sign_up', 'index', 'go_home']
+    allowed_routes = ['log_in', 'single_entry', 'sign_up', 'index', 'go_home', 'all_blog']
     if request.endpoint not in allowed_routes and 'username' not in session:
 
         return redirect('/login')
@@ -30,12 +30,12 @@ def add_post():
             db.session.add(new_post)
             db.session.commit()
             flash('Success!')
-            #blog = Blog.query.all()
+            blog = Blog.query.all()
             blog = Blog.query.filter_by(owner=owner).all()
-            for last in blog:
-                last_post = last.id
-            return redirect('/blog?id={0}'.format(last_post))
-        
+            #for last in blog:
+                #last_post = last.id
+            #return redirect('/blog?id={0}'.format(last_post))
+            return redirect('/singleUser')
     else:
         id = User.query.filter_by().first()
         username = User.query.filter_by().first()
@@ -44,47 +44,34 @@ def add_post():
 
 @app.route('/posts', methods=['POST','GET'])
 def all_blog():
-    username = User.query.filter_by(username=session['username']).first()
-    owner = User.query.filter_by(username=session['username']).first()
-    
     if request.method == 'GET':
-        blog = Blog.query.all()
-        user = User.query.all()
-        username=username.username 
-        return render_template('posts.html', blog=blog, user=user, username=username)
-    #else:
-        #return render_template('posts.html')
+        user=request.args.get('id')
+        if user:
+            username=User.query.filter_by(username=user).first()
+            blog=username.blogs
+        else:
+            blog = Blog.query.all()
+            
+        return render_template('posts.html', blog=blog)
+   
 @app.route('/blog', methods=['POST','GET'])
 def single_entry():
-    owner = User.query.filter_by(username=session['username']).first()
+    
     if request.method == 'GET':
-        username = request.args.get('username')
-        owner_id=request.args.get('owner_id')
-        id = request.args.get('id')
-        blog = Blog.query.filter_by(id=id).first()
-        user = User.query.filter_by(username=session['username']).all()
-        return render_template('blog.html', blog=blog, user= user, username=username, id=id)
-    else:
-        return render_template('posts.html')  
-@app.route('/singleUser', methods=['POST','GET'])
-def my_blog():
-    username = User.query.filter_by(username=session['username']).first() 
-    owner = User.query.filter_by(username=session['username']).first() 
-    if request.method == 'GET':
-        blog = Blog.query.filter_by().all()
-        user = User.query.filter_by(username=session['username']).all() 
-        return render_template('singleUser.html', blog=blog, user=user, username=username, owner=owner)
-    else:
-        #username = request.args.get('username')
-        #entry = request.args.get('id')
-        #blog = Blog.query.filter_by(id=entry).first()
-        #owner = User.query.filter_by(username=session['username']).first()
+        blog_id=request.args.get('id')
+        blog=Blog.query.filter_by(id=blog_id).first()
+        return render_template('blog.html', blog=blog)
         
-        return render_template('index.html')
+     
+@app.route('/singleUser', methods=['POST','GET'])
+def my_blog():# 
+    if request.method == 'GET':
+        user = User.query.filter_by(username=session['username']).first() 
+        return render_template('singleUser.html', user=user)
+    
 
 @app.route('/signup', methods = ["POST", "GET"])
-def sign_up():
-    
+def sign_up():#  
     if request.method == 'POST':
         username =  request.form['username']
         password = request.form['password']
@@ -108,6 +95,7 @@ def sign_up():
                 return render_template('signup.html', username=username,  password_error=password_error)
 
             elif password == verify:
+                 
                 new_user = User(username, password)
                     
                 db.session.add(new_user)
@@ -156,14 +144,12 @@ def log_out():
 
 @app.route('/index', methods=['POST', 'GET'])
 def go_home():
-    username = User.query.filter_by(username=session['username']).first()
-    owner = User.query.filter_by(username=session['username']).first()
     
     if request.method == 'GET':
-        blog = Blog.query.all()
-        user = User.query.all()
-        username=username.username 
-        return render_template('index.html', blog=blog, user=user, username=username)
+        title = request.args.get('title')
+        blogs = Blog.query.all()
+        user = User.query.all() 
+        return render_template('index.html', blogs=blogs, user=user, title=title)
     
     #return redirect ('/')
     return render_template('index.html')

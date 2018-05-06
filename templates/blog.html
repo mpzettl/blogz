@@ -2,29 +2,11 @@
 {% block content%}
 
 
-
-<h2>
-    <p> {{ user }} </p>
-</h2>
 <hr>
 
-
-
-<ul>
-    <h5>Posts</h5>
-    
-       
-    <h4> {{ blog.title }}</h4>
-    <p> {{ blog.body }}</p>
-    <p>{{ blog.owner_id }}</p>
-    <p>{{ user.username }}</p>
-
-    
-    <hr>
-    
-    
-    
-</ul>
+            <h4>{{ blog.title }}</h4>
+            <p> {{ blog.body }}</p>
+            <p><a href="/posts?id={{blog.owner.username}}">{{ blog.owner.username}}</a></p>
 
 
 </hr>
