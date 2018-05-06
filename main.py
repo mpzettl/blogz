@@ -144,10 +144,11 @@ def log_out():
 def go_home():
     
     if request.method == 'GET':
+        
         title = request.args.get('title')
-        blogs = Blog.query.all()
+        blog = Blog.query.all()
         user = User.query.all() 
-        return render_template('index.html', blogs=blogs, user=user, title=title)
+        return render_template('index.html', blog=blog, user=user, title=title)
     
     
     return render_template('index.html')
