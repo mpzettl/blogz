@@ -18,11 +18,11 @@ def add_post():
     if request.method == 'POST':
         title = request.form['post-title']
         body = request.form['post-body']
-        #username = User.query.filter_by().first()
+
 
         if title == "" or body == "":
             flash("""Error: Please fill all fields""", 'error') 
-            return render_template('newpost.html', title=title, body=body)#, validation_error=validation_error, title=title, body=body)
+            return render_template('newpost.html', title=title, body=body)
 
         else:
             owner = User.query.filter_by(username=session['username']).first()
@@ -32,9 +32,7 @@ def add_post():
             flash('Success!')
             blog = Blog.query.all()
             blog = Blog.query.filter_by(owner=owner).all()
-            #for last in blog:
-                #last_post = last.id
-            #return redirect('/blog?id={0}'.format(last_post))
+         
             return redirect('/singleUser')
     else:
         id = User.query.filter_by().first()
@@ -127,7 +125,7 @@ def log_in():
             session['username'] = username
             flash('Logged in', 'session')
             return redirect('/newpost')
-            #return render_template('newpost.html', username=username)
+            
         else:
             flash('Wrong Password or Ivalid User', "error")
             
@@ -140,7 +138,7 @@ def log_in():
 def log_out():
     del session['username']
     
-    return redirect('/posts')#using /login works
+    return redirect('/posts')
 
 @app.route('/index', methods=['POST', 'GET'])
 def go_home():
@@ -151,7 +149,7 @@ def go_home():
         user = User.query.all() 
         return render_template('index.html', blogs=blogs, user=user, title=title)
     
-    #return redirect ('/')
+    
     return render_template('index.html')
 @app.route('/about') 
 def read_about():
@@ -169,7 +167,7 @@ def index():
         else:
             return render_template('login')
     else:
-        #username = User.query.filter_by(id=id).first()  
+         
         return render_template('base.html')
 
 if __name__ == '__main__':
